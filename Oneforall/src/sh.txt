@@ -1,9 +1,0 @@
-sohu.com
-tv.sohu.com
-news.sohu.com
-mp.sohu.com
-auto.sohu.com
-focus.cn
-mail.sohu.com,vip.sohu.com
-sns.sohu.com
-56.com
