@@ -1,4 +1,5 @@
 # DullBlade
+<<<<<<< HEAD
 Automated web reconnaissance & vulnerability scanning tool.Simple, stable, powerful. 
 
 ​	在进行测试的时候就想着，既然我一步步执行脚本，oneforall跑资产，提子域名，又要对子域名进行批量的存活探测，在使用xray进行被动扫描，测poc，那我可不可以写一个脚本，链接这几个步骤，实现自动化执行呢，天天视频、博客、平台东学一下西学一下，接触也有2年了，在ai发展到今天，实现这个功能简直太简单了，写在这里，是为了以后在加一些其他的东西。 
@@ -10,3 +11,4 @@ Automated web reconnaissance & vulnerability scanning tool.Simple, stable, power
 ​	会按照oneforall-提取子域名-存活探测-xray的顺序执行哈。
 
  	最后，这是自己学习写的，存在不足太多，如果涉及其他问题，即使告知即可。
+=======
