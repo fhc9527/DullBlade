@@ -13,4 +13,4 @@ Automated web reconnaissance & vulnerability scanning tool.Simple, stable, power
 
 感谢gthub,感谢开源，感谢各位大佬，让我在到处学习、捡漏。
   
- 最后，这是自己学习写的，存在不足太多，如果涉及其他问题，即使告知即可。
+ 最后，这是自己学习写的，存在不足太多，如果涉及其他问题，及时告知作为更改。
