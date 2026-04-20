@@ -1,0 +1,5 @@
+xray.exe webscan --browser-crawler http://aquaman.jryzt.com/ --html-output vuln.html
+python3 xray_url.txt
+xray.exe webscan --listen 127.0.0.1:7777 --html-output proxy3.html
+
+xray webscan --url-file url.txt --html-output 11.html
