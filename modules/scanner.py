@@ -1,5 +1,4 @@
 import os
-import hashlib
 import subprocess
 
 def do_scan():
@@ -8,62 +7,50 @@ def do_scan():
         print(f"[-] {url_file} 不存在或为空，跳过Xray扫描")
         return
 
-    with open(url_file, 'r', encoding='utf-8') as f:
-        survival_urls = [line.strip() for line in f.readlines() if line.strip()]
-    if not survival_urls:
-        print("[-] 无有效存活URL，跳过Xray扫描")
-        return
-
-    # ========== 核心：XRAY 目录，自动切换 ==========
+    # ========== 你要的 XRAY 文件名：xray_windows_amd64.exe ==========
     xray_dir = os.path.abspath(r"xray_1.9.3")
-    xray_exe = os.path.join(xray_dir, "xray.exe")
+    xray_exe = os.path.join(xray_dir, "xray.exe")  # 这里改了
 
-    # 输出到当前脚本目录，不是xray目录
-    output_dir = os.path.abspath("./xray_results")
-    os.makedirs(output_dir, exist_ok=True)
+    # 输出报告到当前目录：10.html
+    output_file = os.path.abspath("10.html")
 
     if not os.path.exists(xray_exe):
         print(f"[-] Xray不存在：{xray_exe}")
         return
 
-    for idx, target_url in enumerate(survival_urls, 1):
-        try:
-            file_md5 = hashlib.md5(target_url.encode()).hexdigest()
-            html_output = os.path.join(output_dir, f"{file_md5}_{idx}.html")
+    try:
+        # ===================== 你要的核心命令 =====================
+        scan_cmd = [
+            xray_exe,
+            "webscan",
+            "--url-file", url_file,      # 直接读取 url.txt 批量扫描
+            "--html-output", output_file  # 输出 10.html
+        ]
 
-            # === 核心命令 ==
-            scan_cmd = [
-                xray_exe,
-                "webscan",
-                "--basic-crawler", target_url,
-                "--html-output", html_output
-            ]
+        print(f"\n[+] 开始Xray批量扫描，读取：{url_file}")
+        print(f"[+] 报告将保存为：{output_file}")
 
-            print(f"\n[+] 开始Xray扫描 {idx}/{len(survival_urls)}：{target_url}")
+        # 执行命令（切换xray目录，保证配置文件正常）
+        process = subprocess.Popen(
+            scan_cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            bufsize=1,
+            cwd=xray_dir
+        )
 
-            # ========== 最关键：切换工作目录到 xray.exe 所在文件夹 ==========
-            process = subprocess.Popen(
-                scan_cmd,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,
-                text=True,
-                bufsize=1,
-                cwd=xray_dir  # 切换目录！解决找不到配置文件问题
-            )
+        # 实时输出扫描日志
+        for line in iter(process.stdout.readline, ''):
+            print(line, end='')
 
-            # 实时输出（和命令行完全一样）
-            for line in iter(process.stdout.readline, ''):
-                print(line, end='')
+        process.stdout.close()
+        process.wait()
 
-            process.stdout.close()
-            process.wait()
+        if process.returncode == 0:
+            print(f"\n[+] 扫描完成！报告：{output_file}")
+        else:
+            print(f"\n[-] 扫描异常")
 
-            if process.returncode == 0:
-                print(f"\n[+] 扫描完成：{html_output}")
-            else:
-                print(f"\n[-] 扫描异常")
-
-        except Exception as e:
-            print(f"[-] 扫描失败：{e}")
-
-    print(f"\n[+] 全部 URL 扫描完成！报告在 xray_results 文件夹")
+    except Exception as e:
+        print(f"[-] 扫描失败：{e}")
