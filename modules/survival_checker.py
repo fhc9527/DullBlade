@@ -7,7 +7,7 @@ import time
 # 存活探测核心配置
 requests.packages.urllib3.disable_warnings()
 requests.adapters.DEFAULT_RETRIES = 5
-STATUS_CODES = [200, 403]
+STATUS_CODES = [200,301,302, 403]
 TIMEOUT = 1
 URLS_PER_THREAD = 20
 res = []
