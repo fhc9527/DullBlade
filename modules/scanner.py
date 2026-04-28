@@ -4,7 +4,7 @@ import hashlib
 
 def do_scan():
     url_file = "url.txt"
-    xray_dir = os.path.abspath(r"xray_1.9.3")
+    xray_dir = os.path.abspath(r"xray-1.9.11")
     xray_exe = os.path.join(xray_dir, "xray.exe")
 
     # ===================== 输出目录：main.py 同级 xray_results
